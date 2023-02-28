@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+:root {
+    --background: #0d0f10;
+    --background-alt: #101314;
+    --text: #d1cdc8;
+    --accent: #371f96;
+}
+
+/*** The new CSS Reset - version 1.2.0 (last updated 23.7.2021) ***/
+
+
+/* Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property */
+
+*:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
+    all: unset;
+    display: revert;
+}
+
+
+/* Preferred box-sizing value */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+/*
+  Remove list styles (bullets/numbers)
+  in case you use it with normalize.css
+*/
+
+ol,
+ul {
+    list-style: none;
+}
+
+
+/* For images to not be able to exceed their container */
+
+img {
+    max-width: 100%;
+}
+
+
+/* Removes spacing between cells in tables */
+
+table {
+    border-collapse: collapse;
+}
+
+
+/* Revert the 'white-space' property for textarea elements on Safari */
+
+textarea {
+    white-space: revert;
+}
+
+/* End of reset  */
+
+body {
+    color: var(--text);
+    background-color: var(--background);
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
+    text-align: center;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('');
+    padding-top: 42vh;
+}
+
+#search{
+    text-align: left;
+    width: 800px;
+    padding: 10px 20px;
+    margin-bottom: 40px;
+}
+
+.tile{
+    margin: 10px;
+    border-radius: 10px;
+    background-color: #222222a0;
+    backdrop-filter: blur(18px);
+    border-top: 1px solid hsla(0, 0%, 100%, 0.145);
+    box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075), 0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075), 0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075);
+    transition: 0.3s;
+}
+
+.tile:hover{
+    background-color: #444444a0;
+    backdrop-filter: blur(12px);
+    transition: 0.3s;
+}
+
+.tiles{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.tiles .tile{
+    width: 90px;
+    padding: 10px;
+    aspect-ratio: 1/1;
+}
