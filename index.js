@@ -91,7 +91,8 @@ function loadTiles() {
     }
     try {
       const cached = JSON.parse(raw);
-      if (cached) tilesContainer.innerHTML += `<div class="tile"><a href="${cached.url}"><img src="${cached.img}" alt="icon" /></a></div>`;
+      if (cached)
+        tilesContainer.innerHTML += `<div class="tile"><a href="${cached.url || ``}"><img src="${cached.img || `./blank.png`}" alt="icon" /></a></div>`;
     } catch (e) {
       console.error('Error while loading tiles:' + e);
     }
@@ -124,7 +125,7 @@ function init() {
   });
   loadTiles();
   loadBackground();
-  console.info(`// to set a tile use:\nsetTile(idx, url, img});\n// to set a background use:\nsetBg(img});`);
+  console.info(` // to set a tile use:\nsetTile(idx, url, img});\n\n // to set a background use:\nsetBg(img});`);
 }
 
 window.addEventListener('load', init);

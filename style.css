@@ -59,7 +59,7 @@ header {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 8dvh;
+  gap: 2dvh;
 }
 
 footer {
