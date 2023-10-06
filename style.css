@@ -24,6 +24,7 @@ body {
 
 h1 {
   font-size: 2.5rem;
+  display: none;
 }
 
 h2 {
@@ -45,8 +46,11 @@ h3 {
 }
 
 header {
+  width: 100%;
   margin-top: -6dvh;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   gap: 8dvh;
 }
@@ -57,6 +61,14 @@ header {
   width: 100%;
   padding: 16px 20px;
   margin: var(--tile-gap) 0;
+}
+
+header .tile {
+  padding: 16px;
+}
+
+.time {
+  width: 28rem;
 }
 
 .tile {
@@ -80,7 +92,6 @@ header {
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   transition: 0.3s;
-  cursor: pointer;
 }
 
 .tiles {
@@ -97,6 +108,10 @@ header {
   height: 90px;
   padding: 10px;
   aspect-ratio: 1/1;
+}
+
+.tiles .tile:hover {
+  cursor: pointer;
 }
 
 .tile a {
