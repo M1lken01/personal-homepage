@@ -74,7 +74,7 @@ function setBg(img) {
 }
 
 function setCookie(name, value) {
-  document.cookie = `${name}=${JSON.stringify(value)}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/; SameSite=Strict`;
+  document.cookie = `${name}=${JSON.stringify(value)}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/; SameSite=Lax`;
   cookies = parseCookies();
 }
 
@@ -83,8 +83,12 @@ function loadTiles() {
   tilesContainer.innerHTML = null;
   for (let i = 0; i < tileCount; i++) {
     const tileName = `tile_${i}`;
-    const raw = cookies[tileName];
-    if (!raw) setCookie(tileName, { url: null, img: null });
+    let raw = cookies[tileName];
+    if (!raw) {
+      const empty = { url: null, img: null };
+      setCookie(tileName, empty);
+      raw = JSON.stringify(empty);
+    }
     try {
       const cached = JSON.parse(raw);
       if (cached) tilesContainer.innerHTML += `<div class="tile"><a href="${cached.url}"><img src="${cached.img}" alt="icon" /></a></div>`;
@@ -111,13 +115,13 @@ function parseCookies() {
 
 function init() {
   const redirect = parseUrlParams(window.location.href).r;
-  if (redirect) redirectTo(links[redirect]);
+  if (redirect) window.location.href = links[redirect];
+  else updateTime();
   searchBar.value = '';
   searchBar.addEventListener('keydown', function (event) {
     const query = searchBar.value;
     if (event.key === 'Enter') redirectTo(isAddress(query) ? makeAddress(query) : makeSearch(query));
   });
-  updateTime();
   loadTiles();
   loadBackground();
   console.info(`// to set a tile use:\nsetTile(idx, url, img});\n// to set a background use:\nsetBg(img});`);
