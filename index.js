@@ -1,5 +1,7 @@
 const searchBar = document.getElementById('search');
 
+const tileCount = 9;
+
 const links = {
   github: 'https://github.com/M1lken01',
 };
@@ -59,6 +61,45 @@ function updateTime() {
   setInterval(updateTime, 1000);
 }
 
+function setTile(idx, url, img) {
+  setCookie(`tile_${idx}`, { url, img });
+  loadTiles();
+}
+
+function setCookie(name, value) {
+  document.cookie = `${name}=${JSON.stringify(value)}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/; SameSite=Strict`;
+}
+
+function loadTiles() {
+  const tilesContainer = document.querySelector('.tiles');
+  tilesContainer.innerHTML = null;
+  const cookies = parseCookies();
+  for (let i = 0; i < tileCount; i++) {
+    const tileName = `tile_${i}`;
+    const raw = cookies[tileName];
+    if (!raw) {
+      setCookie(tileName, { url: null, img: null });
+      continue;
+    }
+    try {
+      const cached = JSON.parse(raw);
+      if (cached) tilesContainer.innerHTML += `<div class="tile"><a href="${cached.url}"><img src="${cached.img}" alt="icon" /></a></div>`;
+    } catch (e) {
+      console.error('Error while loading tiles:' + e);
+    }
+  }
+}
+
+function parseCookies() {
+  const cookies = document.cookie.split(';');
+  const cookieData = {};
+  for (const cookie of cookies) {
+    const parts = cookie.trim().split('=');
+    cookieData[decodeURIComponent(parts.shift())] = decodeURIComponent(parts.join('='));
+  }
+  return cookieData;
+}
+
 function init() {
   const redirect = parseUrlParams(window.location.href).r;
   if (redirect) redirectTo(links[redirect]);
@@ -68,6 +109,8 @@ function init() {
     if (event.key === 'Enter') redirectTo(isAddress(query) ? makeAddress(query) : makeSearch(query));
   });
   updateTime();
+  loadTiles();
+  console.info(`// to set a tile use:\nsetTile(idx, url, img});`);
 }
 
 window.addEventListener('load', init);
