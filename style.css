@@ -13,17 +13,26 @@ body {
   background-color: var(--background);
   font-family: 'Josefin Sans', sans-serif;
   font-size: 1.2rem;
+  letter-spacing: 1px;
   text-align: center;
   min-height: 100dvh;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url('');
-  /*padding-top: 42vh;*/
+  overflow: hidden;
 }
 
 h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 6rem;
+  letter-spacing: 4px;
+}
+
+h3 {
   font-size: 2rem;
-  padding-top: 6dvh;
 }
 
 #wrapper {
@@ -33,6 +42,13 @@ h1 {
   align-items: center;
   padding: 16px;
   min-height: 100dvh;
+}
+
+header {
+  margin-top: -6dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 8dvh;
 }
 
 #search {
@@ -46,7 +62,8 @@ h1 {
 .tile {
   margin: 0;
   border-radius: var(--tile-border);
-  background-color: #222222a0;
+  background-color: #22222254;
+  -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
   border-top: 1px solid hsla(0, 0%, 100%, 0.145);
   box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075), 0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075), 0 8px 8px hsl(0deg 0% 0% / 0.075),
@@ -60,6 +77,7 @@ h1 {
 
 .tile:hover {
   background-color: #444444a0;
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   transition: 0.3s;
   cursor: pointer;
@@ -91,6 +109,22 @@ h1 {
   border-radius: var(--tile-border);
 }
 
+#circle {
+  width: 200px;
+  height: 200px;
+  background: var(--background);
+  background: -moz-radial-gradient(center, #a1a1a188 0%, var(--background) 70%, var(--background) 100%);
+  background: -webkit-radial-gradient(center, #a1a1a188 0%, var(--background) 70%, var(--background) 100%);
+  background: radial-gradient(ellipse at center, #a1a1a188 0%, var(--background) 70%, var(--background) 100%);
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: -1;
+
+  display: none;
+}
+
 @media screen and (max-width: 1080px) {
   #search {
     width: 100%;
@@ -110,6 +144,6 @@ h1 {
 
   .tiles {
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 40px var(--tile-gap);
+    grid-gap: var(--tile-gap);
   }
 }

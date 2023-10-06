@@ -9,11 +9,15 @@
   </head>
   <body>
     <div id="wrapper">
-      <div>
-        <h1>welcome</h1>
-      </div>
-      <div>
-        <input type="text" name="search" placeholder="search or enter address" id="search" class="tile" value="" />
+      <header>
+        <div class="time">
+          <h2 id="clock">16:65:14</h2>
+          <h3 id="date">Friday, November 16, 2023</h3>
+        </div>
+        <h1>Welcome</h1>
+      </header>
+      <main>
+        <input type="text" name="search" placeholder="Search or enter an address" id="search" class="tile" value="" />
         <div class="tiles">
           <div class="tile">
             <a href="https://github.com/M1lken01">
@@ -61,8 +65,9 @@
             </a>
           </div>
         </div>
-      </div>
+      </main>
     </div>
+    <div id="circle"></div>
     <script src="index.js" defer></script>
   </body>
 </html>
