@@ -6,6 +6,8 @@ const links = {
   github: 'https://github.com/M1lken01',
 };
 
+let cookies = parseCookies();
+
 function isAddress(input) {
   if (input.includes(' ')) return false;
 
@@ -66,21 +68,23 @@ function setTile(idx, url, img) {
   loadTiles();
 }
 
+function setBg(img) {
+  setCookie(`bg`, img);
+  loadBackground();
+}
+
 function setCookie(name, value) {
   document.cookie = `${name}=${JSON.stringify(value)}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/; SameSite=Strict`;
+  cookies = parseCookies();
 }
 
 function loadTiles() {
   const tilesContainer = document.querySelector('.tiles');
   tilesContainer.innerHTML = null;
-  const cookies = parseCookies();
   for (let i = 0; i < tileCount; i++) {
     const tileName = `tile_${i}`;
     const raw = cookies[tileName];
-    if (!raw) {
-      setCookie(tileName, { url: null, img: null });
-      continue;
-    }
+    if (!raw) setCookie(tileName, { url: null, img: null });
     try {
       const cached = JSON.parse(raw);
       if (cached) tilesContainer.innerHTML += `<div class="tile"><a href="${cached.url}"><img src="${cached.img}" alt="icon" /></a></div>`;
@@ -88,6 +92,11 @@ function loadTiles() {
       console.error('Error while loading tiles:' + e);
     }
   }
+}
+
+function loadBackground() {
+  if (!cookies.bg) setCookie('bg', '');
+  document.querySelector('body').style.backgroundImage = `url(${cookies.bg})`;
 }
 
 function parseCookies() {
@@ -110,7 +119,8 @@ function init() {
   });
   updateTime();
   loadTiles();
-  console.info(`// to set a tile use:\nsetTile(idx, url, img});`);
+  loadBackground();
+  console.info(`// to set a tile use:\nsetTile(idx, url, img});\n// to set a background use:\nsetBg(img});`);
 }
 
 window.addEventListener('load', init);

@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
 :root {
   --background: #0d0f10;
   --background-alt: #101314;
   --text: #d1cdc8;
   --accent: #371f96;
-  --tile-border: 10px;
+  --tile-border-radius: 10px;
   --tile-gap: 30px;
+  --tile-blur: 10px;
+  --tile-blur-hover: 2px;
+  --tile-color: #13131387;
+  --tile-color-hover: #1111119d;
 }
 
 body {
@@ -19,6 +24,8 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url('');
+  background-position: center;
+  backdrop-filter: blur(0px);
   overflow: hidden;
 }
 
@@ -73,10 +80,10 @@ header .tile {
 
 .tile {
   margin: 0;
-  border-radius: var(--tile-border);
-  background-color: #22222254;
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
+  border-radius: var(--tile-border-radius);
+  background-color: var(--tile-color);
+  backdrop-filter: blur(var(--tile-blur));
+  -webkit-backdrop-filter: blur(var(--tile-blur));
   border-top: 1px solid hsla(0, 0%, 100%, 0.145);
   box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075), 0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075), 0 8px 8px hsl(0deg 0% 0% / 0.075),
     0 16px 16px hsl(0deg 0% 0% / 0.075);
@@ -88,9 +95,9 @@ header .tile {
 }
 
 .tile:hover {
-  background-color: #444444a0;
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  background-color: var(--tile-color-hover);
+  backdrop-filter: blur(var(--tile-blur-hover));
+  -webkit-backdrop-filter: blur(var(--tile-blur-radius));
   transition: 0.3s;
 }
 
@@ -121,7 +128,7 @@ header .tile {
 
 .tile img {
   aspect-ratio: 1/1;
-  border-radius: var(--tile-border);
+  border-radius: var(--tile-border-radius);
 }
 
 #circle {
@@ -154,7 +161,7 @@ header .tile {
 @media screen and (max-width: 768px) {
   #search {
     width: 100%;
-    padding: 16px 16px;
+    padding: 16px;
   }
 
   .tiles {
