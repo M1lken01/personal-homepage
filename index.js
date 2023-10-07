@@ -87,9 +87,9 @@ function loadTiles() {
     const tileName = `tile_${i}`;
     let raw = localStorage.getItem(tileName);
     if (!raw) {
-      const empty = JSON.stringify({ url: null, img: null });
-      setStorage(tileName, empty);
-      raw = empty;
+      const defaultTile = JSON.stringify(i == 0 ? { url: 'https://github.com/M1lken01', img: 'https://github.com/fluidicon.png' } : { url: null, img: null });
+      setStorage(tileName, defaultTile);
+      raw = defaultTile;
     }
     try {
       const cached = JSON.parse(raw);
