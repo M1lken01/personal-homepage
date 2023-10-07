@@ -6,8 +6,6 @@ const links = {
   github: 'https://github.com/M1lken01',
 };
 
-let cookies = parseCookies();
-
 function isAddress(input) {
   if (input.includes(' ')) return false;
 
@@ -64,12 +62,12 @@ function updateTime() {
 }
 
 function setTile(idx, url, img) {
-  setCookie(`tile_${idx}`, { url, img });
+  setStorage(`tile_${idx}`, JSON.stringify({ url, img }));
   loadTiles();
 }
 
 function setBg(img) {
-  setCookie(`bg`, img);
+  setStorage(`bg`, `${img}`);
   loadBackground();
 }
 
@@ -78,16 +76,20 @@ function setCookie(name, value) {
   cookies = parseCookies();
 }
 
+function setStorage(key, value) {
+  localStorage.setItem(key, value);
+}
+
 function loadTiles() {
   const tilesContainer = document.querySelector('.tiles');
   tilesContainer.innerHTML = null;
   for (let i = 0; i < tileCount; i++) {
     const tileName = `tile_${i}`;
-    let raw = cookies[tileName];
+    let raw = localStorage.getItem(tileName);
     if (!raw) {
-      const empty = { url: null, img: null };
-      setCookie(tileName, empty);
-      raw = JSON.stringify(empty);
+      const empty = JSON.stringify({ url: null, img: null });
+      setStorage(tileName, empty);
+      raw = empty;
     }
     try {
       const cached = JSON.parse(raw);
@@ -100,18 +102,9 @@ function loadTiles() {
 }
 
 function loadBackground() {
-  if (!cookies.bg) setCookie('bg', '');
-  document.querySelector('body').style.backgroundImage = `url(${cookies.bg})`;
-}
-
-function parseCookies() {
-  const cookies = document.cookie.split(';');
-  const cookieData = {};
-  for (const cookie of cookies) {
-    const parts = cookie.trim().split('=');
-    cookieData[decodeURIComponent(parts.shift())] = decodeURIComponent(parts.join('='));
-  }
-  return cookieData;
+  const bgCache = localStorage.getItem('bg');
+  if (!bgCache) setStorage('bg', '');
+  document.querySelector('body').style.backgroundImage = `url("${bgCache}")`;
 }
 
 function init() {
